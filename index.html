@@ -3,26 +3,45 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="boxicons/css/boxicons.css">
+  <script src =login.js></script>
   <title>Network Analysis</title>
-  <meta name="description" content="Basic HTML Template">
-  <meta name="author" content="Your Name Here">
-
+  <meta name="Login" content="Login">
+  <meta name="Group" content="Group">
+</head>
   <!--Lauren Meeker, Daniel Mew, Nathaniel Dodson, Jacob Reed-->
 <body>
-<style>
-body{
-    font-size: 25px;
-}
-</style>
-    <h1>Network Analysis</h1>
-<br>
-<br>
-<br>
-<td> Testing</td>
-<br>
-<td>tested</td>
-<br>
+  <div class="box">
+      <div class="container">
+          <div class="top-header">
+            <span>Local Hospitial</span>
+            <header>Login</header>
+          </div>
+
+          <div class="input-field">
+              <input type="text" class="input" placeholder="Usernamne" id="username" required>
+              <i class="bx bx-user"></i>
+          </div><br>
+          <div class="input-field">
+              <input type="password" class="input" placeholder="Password" id="password" required>
+              <i class="bx bx-lock-alt"></i>
+          </div><br>
+          <div class="input-field">
+              <input type="submit" class="submit" value="Submit" onclick="validate()">
+          </div>
+
+          <div class="bottom">
+            <div class="left">
+                <input type="checkbox" id="check">
+                <label for="check"> Remember Me </label>
+            </div>
+            <div class="right">
+              <label><a href="#">Forgot password?</a></label>
+            </div>
+          </div>
+      </div>
+  </div>
 
 </body>
 </head>
