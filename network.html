@@ -6,7 +6,16 @@
         <title>Network</title>
         <link rel="stylesheet" href="style2.css">
         <script src="https://kit.fontawesome.com/254765053e.js" crossorigin="anonymous"></script>
-
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+            th, td {
+              padding: 10px;
+              text-align: center;
+            }
+          </style>
     </head>
 
     <body>
@@ -22,6 +31,68 @@
             <div class="main_content">
                 <div class="header"> Local Hospitial</div>
                 <div class="info">Do something in this space! - Network</div>
+                <h1>Latency Monitor</h1>
+                <button onclick="pingAddress()">Ping Now</button>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Response Time (ms)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="responseHistory"></tbody>
+                </table>
+                <script>
+                  const IP_ADDRESS = '8.8.8.8'; // replace with the IP address you want to monitor
+                  const INTERVAL = 10 * 60 * 1000; // interval in milliseconds (10 minutes)
+                  const RESPONSE_HISTORY_LENGTH = 12;
+              
+                  let responseHistory = [];
+              
+                  function updateResponseHistory(responseTime) {
+                    responseHistory.push({timestamp: new Date().toLocaleString(), responseTime: responseTime});
+                    if (responseHistory.length > RESPONSE_HISTORY_LENGTH) {
+                      responseHistory.shift();
+                    }
+                    updateTable();
+                  }
+              
+                  function updateTable() {
+                    const tableBody = document.getElementById('responseHistory');
+                    tableBody.innerHTML = '';
+                    responseHistory.forEach(item => {
+                      const row = document.createElement('tr');
+                      const timestamp = document.createElement('td');
+                      const responseTime = document.createElement('td');
+                      timestamp.innerHTML = item.timestamp;
+                      responseTime.innerHTML = item.responseTime !== null ? `${item.responseTime}ms` : 'No response';
+                      row.appendChild(timestamp);
+                      row.appendChild(responseTime);
+                      tableBody.appendChild(row);
+                    });
+                  }
+              
+                  function pingAddress() {
+                    fetch(`/ping?ip=${IP_ADDRESS}`)
+                      .then(response => response.json())
+                      .then(data => {
+                        if (data.alive) {
+                          const responseTime = data.time;
+                          console.log(`Response time: ${responseTime}ms`);
+                          updateResponseHistory(responseTime);
+                        } else {
+                          console.log('No response');
+                          updateResponseHistory(null);
+                        }
+                      })
+                      .catch(error => {
+                        console.error(error);
+                        updateResponseHistory(null);
+                      });
+                  }
+              
+                  setInterval(pingAddress, INTERVAL);
+                </script>
             </div>
         </div>
 

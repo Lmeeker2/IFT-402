@@ -1,0 +1,31 @@
+// Old network code, keeping incase of an issue.
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Network</title>
+        <link rel="stylesheet" href="style2.css">
+        <script src="https://kit.fontawesome.com/254765053e.js" crossorigin="anonymous"></script>
+    
+    </head>
+
+    <body>
+        
+        <div class="wrapper">
+            <div class="sidebar">
+                <h2>Menu</h2>
+                <ul>
+                    <li><a href="home.html"><i class="fa-sharp fa-solid fa-house"></i>Home</a></li>
+                    <li><a href="network.html"><i class="fa-solid fa-download"></i>Network</a></li>
+                </ul>
+            </div>
+            <div class="main_content">
+                <div class="header"> Local Hospitial</div>
+                <div class="info">Do something in this space! - Network</div>
+                
+            </div>
+        </div>
+
+    </body>
+</html>
