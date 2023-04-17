@@ -43,7 +43,7 @@
                   <tbody id="responseHistory"></tbody>
                 </table>
                 <script>
-                  const IP_ADDRESS = '18.155.181.46'; // replace with the IP address you want to monitor
+                  const IP_ADDRESS = '35.171.144.234'; // replace with the IP address you want to monitor
                   const INTERVAL = 10 * 60 * 1000; // interval in milliseconds (10 minutes)
                   const RESPONSE_HISTORY_LENGTH = 12;
               
@@ -74,23 +74,26 @@
                 }
               
                   function pingAddress() {
-                    fetch(`/ping?ip=${IP_ADDRESS}`)
-                      .then(response => response.json())
-                      .then(data => {
-                        if (data.alive) {
-                          const responseTime = data.time;
-                          console.log(`Response time: ${responseTime}ms`);
-                          updateResponseHistory(responseTime);
-                        } else {
-                          console.log('No response');
-                          updateResponseHistory(null);
-                        }
-                      })
-                      .catch(error => {
-                        console.error(error);
-                        updateResponseHistory(null);
-                      });
+                    const IP_ADDRESS = '35.171.144.234'; // replace with the IP address you want to monitor
+                    const PING_TIMEOUT = 5000; // 5 seconds
+                    const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.timeout = PING_TIMEOUT;
+                    xhr.onload = function() {
+                      const responseTime = new Date().getTime() - startTime;
+                      console.log(`Response time: ${responseTime}ms`);
+                      updateResponseHistory(responseTime);
+                    };
+                    xhr.onerror = function() {
+                      console.log('No response');
+                      updateResponseHistory(null);
+                    };
+                    const startTime = new Date().getTime();
+                    xhr.open('GET', `${CORS_PROXY}http://${IP_ADDRESS}`, true);
+                    xhr.send();
                   }
+
               
                   setInterval(pingAddress, INTERVAL);
                 </script>
