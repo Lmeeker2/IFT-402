@@ -43,7 +43,7 @@
                   <tbody id="responseHistory"></tbody>
                 </table>
                 <script>
-                  const IP_ADDRESS = '8.8.8.8'; // replace with the IP address you want to monitor
+                  const IP_ADDRESS = '54.242.92.144'; // replace with the IP address you want to monitor
                   const INTERVAL = 10 * 60 * 1000; // interval in milliseconds (10 minutes)
                   const RESPONSE_HISTORY_LENGTH = 12;
               
@@ -57,20 +57,21 @@
                     updateTable();
                   }
               
-                  function updateTable() {
+                function updateTable() {
                     const tableBody = document.getElementById('responseHistory');
                     tableBody.innerHTML = '';
-                    responseHistory.forEach(item => {
-                      const row = document.createElement('tr');
-                      const timestamp = document.createElement('td');
-                      const responseTime = document.createElement('td');
-                      timestamp.innerHTML = item.timestamp;
-                      responseTime.innerHTML = item.responseTime !== null ? `${item.responseTime}ms` : 'No response';
-                      row.appendChild(timestamp);
-                      row.appendChild(responseTime);
-                      tableBody.appendChild(row);
-                    });
-                  }
+                    for (let i = responseHistory.length - 1; i >= Math.max(responseHistory.length - RESPONSE_HISTORY_LENGTH, 0); i--) {
+                        const item = responseHistory[i];
+                        const row = document.createElement('tr');
+                        const timestamp = document.createElement('td');
+                        const responseTime = document.createElement('td');
+                        timestamp.innerHTML = item.timestamp;
+                        responseTime.innerHTML = item.responseTime !== null ? `${item.responseTime}ms` : 'No response';
+                        row.appendChild(timestamp);
+                        row.appendChild(responseTime);
+                        tableBody.appendChild(row);
+                    }
+                }
               
                   function pingAddress() {
                     fetch(`/ping?ip=${IP_ADDRESS}`)
